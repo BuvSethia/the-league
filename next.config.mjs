@@ -3,7 +3,9 @@ const nextConfig = {
     basePath: "/the-league",
     output: 'export',
     webpack: (config, { isServer, webpack }) => {
-        config.resolve.fallback.fs = false;
+        if (!isServer) {
+            config.resolve.fallback.fs = false;
+        }
 
         return config;
     },    

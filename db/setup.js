@@ -25,5 +25,5 @@ initSqlJs().then(function (SQL) {
     db.run(data)
   })
 
-  fs.writeFileSync(`${__dirname}/../../public/db.sqlite`, Buffer.from(db.export()));
+  fs.writeFileSync(`${__dirname}/../public/db.sqlite`, Buffer.from(db.export()));
 });
