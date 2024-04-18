@@ -3,23 +3,7 @@ CREATE TABLE IF NOT EXISTS tournaments (
     name TEXT NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
-    location TEXT NOT NULL,
-    mvp INTEGER,
-    defensive_player INTEGER,
-    tournament_player_1 INTEGER,
-    tournament_player_2 INTEGER,
-    tournament_player_3 INTEGER,
-    tournament_player_4 INTEGER,
-    tournament_player_5 INTEGER,
-    finals_mvp INTEGER,
-    FOREIGN KEY (mvp) REFERENCES players (id),
-    FOREIGN KEY (defensive_player) REFERENCES players (id),
-    FOREIGN KEY (tournament_player_1) REFERENCES players (id),
-    FOREIGN KEY (tournament_player_2) REFERENCES players (id),
-    FOREIGN KEY (tournament_player_3) REFERENCES players (id),
-    FOREIGN KEY (tournament_player_4) REFERENCES players (id),
-    FOREIGN KEY (tournament_player_5) REFERENCES players (id),
-    FOREIGN KEY (finals_mvp) REFERENCES players (id)
+    location TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS players (
@@ -95,4 +79,22 @@ CREATE TABLE IF NOT EXISTS player_game_stats (
 CREATE TABLE IF NOT EXISTS game_types (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS award_types (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS awards (
+    id INTEGER PRIMARY KEY,
+    tournament_id INTEGER NOT NULL,
+    player_id INTEGER NOT NULL,
+    award_type_id INTEGER NOT NULL,
+    FOREIGN KEY (tournament_id) REFERENCES tournaments (id),
+    FOREIGN KEY (player_id) REFERENCES players (id),
+    FOREIGN KEY (award_type_id) REFERENCES award_types (id),
+    FOREIGN KEY (tournament_id, player_id) REFERENCES tournament_team_players (tournament_id, player_id),
+    UNIQUE (tournament_id, award_type_id),
+    UNIQUE (tournament_id, player_id, award_type_id)
 );
