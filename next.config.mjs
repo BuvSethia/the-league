@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    basePath: "/the-league",
     output: 'export',
     distDir: 'docs',
     webpack: (config, { isServer, webpack }) => {
