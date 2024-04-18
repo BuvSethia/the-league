@@ -58,7 +58,6 @@ CREATE TABLE IF NOT EXISTS games (
 );
 
 CREATE TABLE IF NOT EXISTS player_game_stats (
-    id INTEGER PRIMARY KEY,
     game_id INTEGER NOT NULL,
     player_id INTEGER NOT NULL,
     tov INTEGER NOT NULL,
