@@ -9,25 +9,48 @@ function TournamentInfo({ tournamentId }: { tournamentId: number }) {
   const [teams, setTeams] = useState<any[]>([]);
 
   useEffect(() => {
-    const fetchTournamentInfo = () => {
-      const tournamentQuery = `SELECT id, name, location, start_date, end_date 
-                                FROM tournaments 
-                                WHERE id = ${tournamentId}`;
-      const teamsQuery = `SELECT tt.placement, t.name AS team_name 
-                          FROM tournament_teams tt 
-                          JOIN teams t ON tt.team_id = t.id 
-                          WHERE tt.tournament_id = ${tournamentId} 
-                          ORDER BY tt.placement`;
+    const fetchTournamentInfo = async () => {
+      try {
+        const tournamentQuery = `SELECT id, name, location, start_date, end_date 
+                                  FROM tournaments 
+                                  WHERE id = ${tournamentId}`;
+        const teamsQuery = `SELECT 
+        teams.id AS team_id,
+        teams.name AS team_name,
+        COUNT(CASE WHEN games.winning_team_id = teams.id AND games.game_type_id = 1 THEN 1 END) AS wins_rs,
+        COUNT(CASE WHEN games.winning_team_id = teams.id AND games.game_type_id = 2 THEN 1 END) AS wins_finals,
+        (COUNT(CASE WHEN ((games.team1_id = teams.id OR games.team2_id = teams.id) AND games.game_type_id = 1) THEN 1 END) 
+            - COUNT(CASE WHEN games.winning_team_id = teams.id AND games.game_type_id = 1 THEN 1 END) 
+            - COUNT(CASE WHEN games.winning_team_id IS NULL AND games.game_type_id = 1 THEN 1 END)) AS losses_rs,
+            (COUNT(CASE WHEN ((games.team1_id = teams.id OR games.team2_id = teams.id) AND games.game_type_id = 2) THEN 1 END) 
+            - COUNT(CASE WHEN games.winning_team_id = teams.id AND games.game_type_id = 2 THEN 1 END) 
+            - COUNT(CASE WHEN games.winning_team_id IS NULL AND games.game_type_id = 2 THEN 1 END)) AS losses_finals
+    FROM 
+        teams
+    JOIN 
+        tournament_teams ON teams.id = tournament_teams.team_id
+    JOIN 
+        games ON (tournament_teams.tournament_id = games.tournament_id AND (games.team1_id = teams.id OR games.team2_id = teams.id))
+    WHERE 
+        (games.game_type_id = 1 OR games.game_type_id = 2)
+        AND tournament_teams.tournament_id = '${tournamentId}'
+    GROUP BY 
+        teams.id, teams.name`;
 
-      const tournamentResult = executeQuery(tournamentQuery);      
-      const teamsResult = executeQuery(teamsQuery);
+        const [tournamentResult, teamsResult] = await Promise.all([
+          executeQuery(tournamentQuery),
+          executeQuery(teamsQuery)
+        ]);
 
-      if (tournamentResult && tournamentResult.length > 0) {
-        setTournament(tournamentResult[0]);
-      }
+        if (tournamentResult && tournamentResult.length > 0) {
+          setTournament(tournamentResult[0]);
+        }
 
-      if (teamsResult) {
-        setTeams(teamsResult);
+        if (teamsResult) {
+          setTeams(teamsResult);
+        }
+      } catch (error) {
+        console.error("Error fetching tournament info:", error);
       }
     };
 
@@ -54,6 +77,7 @@ function TournamentInfo({ tournamentId }: { tournamentId: number }) {
           <tr>
             <th className="border border-white-800 p-2">Standing</th>
             <th className="border border-white-800 p-2">Team</th>
+            <th className="border border-white-800 p-2">Record</th>
           </tr>
         </thead>
         <tbody>
@@ -61,6 +85,15 @@ function TournamentInfo({ tournamentId }: { tournamentId: number }) {
             <tr key={index}>
               <td className="border border-white-800 p-2">{team.placement}</td>
               <td className="border border-white-800 p-2">{team.team_name}</td>
+              <td className="border border-white-800 p-2">
+                Group: {team.wins_rs}-{team.losses_rs}
+                {team.wins_finals + team.losses_finals > 0 ? (
+                    <>
+                    <br/>
+                    Finals: {team.wins_finals}-{team.losses_finals}
+                    </>
+                ) : null}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -70,3 +103,4 @@ function TournamentInfo({ tournamentId }: { tournamentId: number }) {
 }
 
 export default TournamentInfo;
+
