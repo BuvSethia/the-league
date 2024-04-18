@@ -22,8 +22,8 @@ initSqlJs().then(function (SQL) {
   
   tableLoadOrder.forEach(table => {
     const data = fs.readFileSync(`${__dirname}/data/${table}.sql`, { encoding: 'utf-8' });
-    db.run(tableStatements)
+    db.run(data)
   })
 
-  fs.writeFileSync(`${__dirname}/db.sqlite`, Buffer.from(db.export()));
+  fs.writeFileSync(`${__dirname}/../../public/db.sqlite`, Buffer.from(db.export()));
 });
