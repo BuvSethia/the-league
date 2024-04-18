@@ -2,12 +2,28 @@ const fs = require("fs");
 const initSqlJs = require("sql.js");
 
 const tableStatements = fs.readFileSync(`${__dirname}/tables.sql`, { encoding: 'utf-8' });
-const loadStatements = fs.readFileSync(`${__dirname}/load.sql`, { encoding: 'utf-8' });
+
+const tableLoadOrder = [
+  "tournaments",
+  "teams",
+  "players",
+  "tournament_teams",
+  "tournament_team_players",
+  "game_types",
+  "games",
+  "player_game_stats",
+  "award_types",
+  "awards"
+];
 
 initSqlJs().then(function (SQL) {
   const db = new SQL.Database();
   db.run(tableStatements)
-  db.run(loadStatements)
+  
+  tableLoadOrder.forEach(table => {
+    const data = fs.readFileSync(`${__dirname}/data/${table}.sql`, { encoding: 'utf-8' });
+    db.run(tableStatements)
+  })
 
   fs.writeFileSync(`${__dirname}/db.sqlite`, Buffer.from(db.export()));
 });

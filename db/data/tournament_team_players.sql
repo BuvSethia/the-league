@@ -1,0 +1,15 @@
+INSERT INTO tournament_team_players (tournament_id, player_id, team_id) VALUES (1, 1, 1);
+INSERT INTO tournament_team_players (tournament_id, player_id, team_id) VALUES (1, 2, 1);
+INSERT INTO tournament_team_players (tournament_id, player_id, team_id) VALUES (1, 3, 1);
+INSERT INTO tournament_team_players (tournament_id, player_id, team_id) VALUES (1, 4, 1);
+INSERT INTO tournament_team_players (tournament_id, player_id, team_id) VALUES (1, 5, 1);
+INSERT INTO tournament_team_players (tournament_id, player_id, team_id) VALUES (1, 6, 2);
+INSERT INTO tournament_team_players (tournament_id, player_id, team_id) VALUES (1, 7, 2);
+INSERT INTO tournament_team_players (tournament_id, player_id, team_id) VALUES (1, 8, 2);
+INSERT INTO tournament_team_players (tournament_id, player_id, team_id) VALUES (1, 9, 2);
+INSERT INTO tournament_team_players (tournament_id, player_id, team_id) VALUES (1, 10, 2);
+INSERT INTO tournament_team_players (tournament_id, player_id, team_id) VALUES (1, 11, 3);
+INSERT INTO tournament_team_players (tournament_id, player_id, team_id) VALUES (1, 12, 3);
+INSERT INTO tournament_team_players (tournament_id, player_id, team_id) VALUES (1, 13, 3);
+INSERT INTO tournament_team_players (tournament_id, player_id, team_id) VALUES (1, 14, 3);
+INSERT INTO tournament_team_players (tournament_id, player_id, team_id) VALUES (1, 15, 3);

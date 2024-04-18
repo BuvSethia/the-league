@@ -1,0 +1,15 @@
+INSERT INTO players (id, name, current_team_id) VALUES (1, 'Sunny', 1);
+INSERT INTO players (id, name, current_team_id) VALUES (2, 'Avi', 1);
+INSERT INTO players (id, name, current_team_id) VALUES (3, 'Pranav', 1);
+INSERT INTO players (id, name, current_team_id) VALUES (4, 'Sumbhav', 1);
+INSERT INTO players (id, name, current_team_id) VALUES (5, 'Abhi', 1);
+INSERT INTO players (id, name, current_team_id) VALUES (6, 'Nish', 2);
+INSERT INTO players (id, name, current_team_id) VALUES (7, 'Adi A.', 2);
+INSERT INTO players (id, name, current_team_id) VALUES (8, 'Andrew', 2);
+INSERT INTO players (id, name, current_team_id) VALUES (9, 'Vishal', 2);
+INSERT INTO players (id, name, current_team_id) VALUES (10, 'Akash', 2);
+INSERT INTO players (id, name, current_team_id) VALUES (11, 'Nav', 3);
+INSERT INTO players (id, name, current_team_id) VALUES (12, 'Yash', 3);
+INSERT INTO players (id, name, current_team_id) VALUES (13, 'Adi P.', 3);
+INSERT INTO players (id, name, current_team_id) VALUES (14, 'Nick', 3);
+INSERT INTO players (id, name, current_team_id) VALUES (15, 'Prashant', 3);
