@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import useDatabase from "../useDatabase";
+import TournamentInfo from "./components/TournamentInfo";
 
 export default function Home() {
   const { executeQuery } = useDatabase();
@@ -48,7 +49,7 @@ export default function Home() {
           ))}
         </select>
       </div>
+      {selectedTournament && <TournamentInfo tournamentId={selectedTournament} />}
     </div>
   );
 }
-

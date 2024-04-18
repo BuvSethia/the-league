@@ -17,17 +17,17 @@ export default function useDatabase() {
   }, []);
 
   // Example method to execute a query
-  const executeQuery = useCallback((query: string, params: any[] = []) => {
+  const executeQuery = useCallback((query: string) => {
     if (!db) {
       console.error("Database not initialized!");
       return null;
     }
-    
+
     try {
       const stmt = db.prepare(query);
       const rows: any[] = [];
       while (stmt.step()) {
-        rows.push(stmt.getAsObject(params));
+        rows.push(stmt.getAsObject());
       }
       stmt.free();
 
