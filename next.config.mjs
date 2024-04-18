@@ -7,6 +7,17 @@ const nextConfig = {
             config.resolve.fallback.fs = false;
         }
 
+        config.plugins.push(
+            new webpack.IgnorePlugin({
+            checkResource(resource, context) {
+                if (resource.includes('/db/') && !context.includes('node_modules')) {
+                return true;
+                }
+                return false;
+            },
+            }),
+        );
+
         return config;
     },    
 };
