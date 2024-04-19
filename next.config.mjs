@@ -4,7 +4,7 @@ const nextConfig = {
     output: 'export',
     webpack: (config, { isServer, webpack }) => {
         if (!isServer) {
-            config.resolve.fallback.fs = false;
+            config.resolve.fallback.fs = 'empty';
         }
 
         config.plugins.push(
