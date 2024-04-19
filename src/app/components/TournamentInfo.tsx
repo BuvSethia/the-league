@@ -118,7 +118,7 @@ ORDER BY
       <p className="font-semibold">All-tournament Team:</p>
       <ul className="list-disc">
         {[1, 2, 3, 4, 5].map((i) => (
-          <li className="ml-7"></li>
+          <li key={i} className="ml-7"></li>
         ))}
       </ul>
 
