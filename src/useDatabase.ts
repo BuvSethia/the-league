@@ -14,7 +14,7 @@ export default function useDatabase() {
       locateFile: () => '/the-league/sql-wasm.wasm',
     }).then(async (SQL: any) => {
       (window as any).SQL = SQL;
-      const dbData = await fetch("/db.sqlite").then(res => res.arrayBuffer());
+      const dbData = await fetch("/the-league/db.sqlite").then(res => res.arrayBuffer());
       setDb(new SQL.Database(new Uint8Array(dbData)));
     });
   }, []);
