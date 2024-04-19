@@ -8,6 +8,8 @@ export default function useDatabase() {
 
   useEffect(() => {
     // Load sql.js and initialize the database
+    while (!(window as any).initSqlJs) {}
+    
     (window as any).initSqlJs({
       locateFile: () => '/sql-wasm.wasm',
     }).then(async (SQL: any) => {
