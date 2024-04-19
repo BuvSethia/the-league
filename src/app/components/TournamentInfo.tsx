@@ -5,7 +5,13 @@ import useDatabase from "../../useDatabase";
 
 const SELECTED_BUTTON_CLASSES = "border-red-800";
 
-function TournamentInfo({ tournamentId, onGameSelect }: { tournamentId: number, onGameSelect: (gameId: number) => void }) {
+function TournamentInfo({
+  tournamentId,
+  onGameSelect,
+}: {
+  tournamentId: number;
+  onGameSelect: (gameId: number) => void;
+}) {
   const { executeQuery } = useDatabase();
   const [tournament, setTournament] = useState<any>(null);
   const [teams, setTeams] = useState<any[]>([]);
@@ -86,7 +92,7 @@ ORDER BY
   }
 
   const handleGameClick = (buttonKey: string, gameId: number) => {
-    onGameSelect(gameId)
+    onGameSelect(gameId);
     setSelectedButton(buttonKey);
   };
 
@@ -97,7 +103,8 @@ ORDER BY
         <strong>Location:</strong> {tournament.location}
       </p>
       <p>
-        <strong>Date:</strong> {new Date(tournament.start_date).toLocaleDateString()}
+        <strong>Date:</strong>{" "}
+        {new Date(tournament.start_date).toLocaleDateString()}
         {tournament.start_date !== tournament.end_date &&
           ` - ${new Date(tournament.end_date).toLocaleDateString()}`}
       </p>
@@ -126,7 +133,7 @@ ORDER BY
                 ) : null}
               </td>
               <td className="border border-white-800 p-2">
-              <p className="mr-2 inline">Group:</p>
+                <p className="mr-2 inline">Group:</p>
                 {games
                   .filter(
                     (game) =>

@@ -13,9 +13,7 @@ export default function Home() {
   const [selectedTournament, setSelectedTournament] = useState<number | null>(
     null,
   );
-  const [gameToDisplay, setGameToDisplay] = useState<number | null>(
-    null,
-  );
+  const [gameToDisplay, setGameToDisplay] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchTournaments = async () => {
@@ -60,11 +58,14 @@ export default function Home() {
         </select>
       </div>
       {selectedTournament && (
-        <TournamentInfo tournamentId={selectedTournament} onGameSelect={setGameToDisplay} />
+        <TournamentInfo
+          tournamentId={selectedTournament}
+          onGameSelect={setGameToDisplay}
+        />
       )}
 
       {gameToDisplay && (
-        <>          
+        <>
           <GameInfo gameId={gameToDisplay} />
         </>
       )}
