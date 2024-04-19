@@ -1,9 +1,9 @@
-INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (1, 1, '2024-04-20', 1, 2, NULL, 1);
-INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (2, 1, '2024-04-20', 1, 2, NULL, 1);
-INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (3, 1, '2024-04-20', 1, 2, NULL, 1);
-INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (4, 1, '2024-04-20', 1, 3, NULL, 1);
-INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (5, 1, '2024-04-20', 1, 3, NULL, 1);
-INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (6, 1, '2024-04-20', 1, 3, NULL, 1);
-INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (7, 1, '2024-04-20', 2, 3, NULL, 1);
-INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (8, 1, '2024-04-20', 2, 3, NULL, 1);
-INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (9, 1, '2024-04-20', 2, 3, NULL, 1);
+INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (1, 1, '2024-04-20 12:00:00', 1, 2, NULL, 1);
+INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (2, 1, '2024-04-20 13:00:00', 1, 2, NULL, 1);
+INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (3, 1, '2024-04-20 14:00:00', 1, 2, NULL, 1);
+INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (4, 1, '2024-04-20 15:00:00', 1, 3, NULL, 1);
+INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (5, 1, '2024-04-20 16:00:00', 1, 3, NULL, 1);
+INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (6, 1, '2024-04-20 17:00:00', 1, 3, NULL, 1);
+INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (7, 1, '2024-04-20 18:00:00', 2, 3, NULL, 1);
+INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (8, 1, '2024-04-20 19:00:00', 2, 3, NULL, 1);
+INSERT INTO games (id, tournament_id, date, team1_id, team2_id, winning_team_id, game_type_id) VALUES (9, 1, '2024-04-20 20:00:00', 2, 3, NULL, 1);

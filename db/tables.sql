@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS games (
 
 CREATE TABLE IF NOT EXISTS player_game_stats (
     game_id INTEGER NOT NULL,
+    team_id INTEGER NOT NULL,
     player_id INTEGER NOT NULL,
     tov INTEGER NOT NULL,
     fgm INTEGER NOT NULL,
@@ -71,6 +72,7 @@ CREATE TABLE IF NOT EXISTS player_game_stats (
     threepm INTEGER NOT NULL,
     threepa INTEGER NOT NULL,
     FOREIGN KEY (game_id) REFERENCES games (id),
+    FOREIGN KEY (team_id) REFERENCES teams (id),
     FOREIGN KEY (player_id) REFERENCES players (id),
     UNIQUE (game_id, player_id)
 );
