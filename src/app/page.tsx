@@ -6,8 +6,12 @@ import TournamentInfo from "./components/TournamentInfo";
 
 export default function Home() {
   const { executeQuery } = useDatabase();
-  const [tournaments, setTournaments] = useState<{ id: number, name: string }[]>([]);
-  const [selectedTournament, setSelectedTournament] = useState<number | null>(null);
+  const [tournaments, setTournaments] = useState<
+    { id: number; name: string }[]
+  >([]);
+  const [selectedTournament, setSelectedTournament] = useState<number | null>(
+    null,
+  );
 
   useEffect(() => {
     const fetchTournaments = async () => {
@@ -35,12 +39,14 @@ export default function Home() {
       <div className="flex items-center mb-4">
         <label className="mr-2">Choose a tournament:</label>
         <select
-          className="border border-white bg-black text-white rounded p-2 h-10 w-60"
+          className="border border-white bg-transparent text-white rounded p-2 h-10 w-60"
           value={selectedTournament || ""}
           onChange={handleSelectChange}
         >
           <option value="" disabled hidden>
-            {selectedTournament ? "Select a tournament" : "Loading tournaments..."}
+            {selectedTournament
+              ? "Select a tournament"
+              : "Loading tournaments..."}
           </option>
           {tournaments.map((tournament) => (
             <option key={tournament.id} value={tournament.id}>
@@ -49,7 +55,9 @@ export default function Home() {
           ))}
         </select>
       </div>
-      {selectedTournament && <TournamentInfo tournamentId={selectedTournament} />}
+      {selectedTournament && (
+        <TournamentInfo tournamentId={selectedTournament} />
+      )}
     </div>
   );
 }

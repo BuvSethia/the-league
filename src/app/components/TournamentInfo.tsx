@@ -3,11 +3,14 @@
 import React, { useState, useEffect } from "react";
 import useDatabase from "../../useDatabase";
 
+const SELECTED_BUTTON_CLASSES = "border-red-800";
+
 function TournamentInfo({ tournamentId }: { tournamentId: number }) {
   const { executeQuery } = useDatabase();
   const [tournament, setTournament] = useState<any>(null);
   const [teams, setTeams] = useState<any[]>([]);
   const [games, setGames] = useState<any[]>([]);
+  const [selectedButton, setSelectedButton] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchTournamentInfo = async () => {
@@ -51,12 +54,12 @@ WHERE
     games.tournament_id = '${tournamentId}'
 ORDER BY 
     games.date;
-        `
+        `;
 
         const [tournamentResult, teamsResult, gamesResult] = [
           executeQuery(tournamentQuery),
           executeQuery(teamsQuery),
-          executeQuery(gamesQuery)
+          executeQuery(gamesQuery),
         ];
 
         if (tournamentResult && tournamentResult.length > 0) {
@@ -82,9 +85,9 @@ ORDER BY
     return <div>Loading...</div>;
   }
 
-  const handleGameClick = (gameId: number) => {
-    console.log(gameId)
-  }
+  const handleGameClick = (buttonKey: string, gameId: number) => {
+    setSelectedButton(buttonKey);
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -94,7 +97,8 @@ ORDER BY
       </p>
       <p>
         <strong>Date:</strong> {tournament.start_date}
-        {tournament.start_date !== tournament.end_date && ` - ${tournament.end_date}`}
+        {tournament.start_date !== tournament.end_date &&
+          ` - ${tournament.end_date}`}
       </p>
       <h3 className="text-xl font-semibold mt-4">Teams</h3>
       <table className="border-collapse border border-white-800 mt-2">
@@ -107,27 +111,47 @@ ORDER BY
           </tr>
         </thead>
         <tbody>
-        {teams.map((team, index) => (
-    <tr key={index}>
-        <td className="border border-white-800 p-2">{team.placement}</td>
-        <td className="border border-white-800 p-2">{team.team_name}</td>
-        <td className="border border-white-800 p-2">
-            Group: {team.wins_rs}-{team.losses_rs}
-            {team.wins_finals + team.losses_finals > 0 ? (
-                <>
-                    <br/>
+          {teams.map((team, index) => (
+            <tr key={index}>
+              <td className="border border-white-800 p-2">{team.placement}</td>
+              <td className="border border-white-800 p-2">{team.team_name}</td>
+              <td className="border border-white-800 p-2">
+                Group: {team.wins_rs}-{team.losses_rs}
+                {team.wins_finals + team.losses_finals > 0 ? (
+                  <>
+                    <br />
                     Finals: {team.wins_finals}-{team.losses_finals}
-                </>
-            ) : null}
-        </td>
-        <td className="border border-white-800 p-2">
-            {games.filter(game => game.team1_id === team.team_id || game.team2_id === team.team_id)
-              .map((game, idx) => (
-                <button key={idx} onClick={() => handleGameClick(game.game_id)}>Game {idx + 1}</button>
-            ))}
-        </td>
-    </tr>
-))}
+                  </>
+                ) : null}
+              </td>
+              <td className="border border-white-800 p-2">
+                {games
+                  .filter(
+                    (game) =>
+                      game.game_type_id === 1 &&
+                      (game.team1_id === team.team_id ||
+                        game.team2_id === team.team_id),
+                  )
+                  .map((game, idx) => {
+                    const buttonKey = `${team.team_id}--${game.game_id}`;
+                    const styles =
+                      buttonKey === selectedButton
+                        ? SELECTED_BUTTON_CLASSES
+                        : "";
+
+                    return (
+                      <button
+                        className={`mr-2 mt-1 mb-1 pl-2 pr-2 rounded shadow:bg-white-800 border border-white-200 shadow shadow-black hover:ring-2 hover:ring-blue-500 ${styles} `}
+                        key={idx}
+                        onClick={() => handleGameClick(buttonKey, game.game_id)}
+                      >
+                        Game {idx + 1}
+                      </button>
+                    );
+                  })}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
@@ -135,4 +159,3 @@ ORDER BY
 }
 
 export default TournamentInfo;
-
