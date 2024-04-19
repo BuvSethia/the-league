@@ -108,7 +108,21 @@ ORDER BY
         {tournament.start_date !== tournament.end_date &&
           ` - ${new Date(tournament.end_date).toLocaleDateString()}`}
       </p>
-      <h3 className="text-xl font-semibold mt-4">Teams</h3>
+
+      <h3 className="text-xl font-bold mt-4 mb-1">Winner:</h3>
+
+      <h3 className="text-xl font-bold mt-4 mb-1">Awards</h3>
+      <p className="font-semibold">MVP:</p>
+      <p className="font-semibold">Finals MVP:</p>
+      <p className="font-semibold">Defensive Player:</p>
+      <p className="font-semibold">All-tournament Team:</p>
+      <ul className="list-disc">
+        {[1, 2, 3, 4, 5].map((i) => (
+          <li className="ml-7"></li>
+        ))}
+      </ul>
+
+      <h3 className="text-xl font-bold mt-4">Teams</h3>
       <table className="border-collapse border border-white-800 mt-2">
         <thead>
           <tr>
