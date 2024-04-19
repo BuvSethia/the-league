@@ -11,7 +11,7 @@ export default function useDatabase() {
     while (!(window as any).initSqlJs) {}
     
     (window as any).initSqlJs({
-      locateFile: () => '/sql-wasm.wasm',
+      locateFile: () => '/the-league/sql-wasm.wasm',
     }).then(async (SQL: any) => {
       (window as any).SQL = SQL;
       const dbData = await fetch("/db.sqlite").then(res => res.arrayBuffer());
