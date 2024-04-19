@@ -3,7 +3,9 @@ const nextConfig = {
     basePath: "/the-league",
     output: 'export',
     webpack: (config, { webpack }) => {
-        config.resolve.fallback = { fs: 'empty' };
+        if (!isServer) {
+            config.resolve.fallback.fs = false;
+        }
 
         config.plugins.push(
             new webpack.IgnorePlugin({
