@@ -2,7 +2,7 @@
 const nextConfig = {
     basePath: "/the-league",
     output: 'export',
-    webpack: (config, { webpack }) => {
+    webpack: (config, { isServer, webpack }) => {
         if (!isServer) {
             config.resolve.fallback.fs = false;
         }
