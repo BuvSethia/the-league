@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <Script strategy="beforeInteractive" src="/sql-wasm.js" />
+        <Script strategy="beforeInteractive" src="/the-league/sql-wasm.js" />
       </head>
       <body className={inter.className}>
         
