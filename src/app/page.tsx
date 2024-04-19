@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import useDatabase from "../useDatabase";
 import TournamentInfo from "./components/TournamentInfo";
+import GameInfo from "./components/GameInfo";
 
 export default function Home() {
   const { executeQuery } = useDatabase();
@@ -10,6 +11,9 @@ export default function Home() {
     { id: number; name: string }[]
   >([]);
   const [selectedTournament, setSelectedTournament] = useState<number | null>(
+    null,
+  );
+  const [gameToDisplay, setGameToDisplay] = useState<number | null>(
     null,
   );
 
@@ -56,7 +60,13 @@ export default function Home() {
         </select>
       </div>
       {selectedTournament && (
-        <TournamentInfo tournamentId={selectedTournament} />
+        <TournamentInfo tournamentId={selectedTournament} onGameSelect={setGameToDisplay} />
+      )}
+
+      {gameToDisplay && (
+        <>          
+          <GameInfo gameId={gameToDisplay} />
+        </>
       )}
     </div>
   );

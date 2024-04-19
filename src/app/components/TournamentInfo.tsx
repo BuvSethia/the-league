@@ -5,7 +5,7 @@ import useDatabase from "../../useDatabase";
 
 const SELECTED_BUTTON_CLASSES = "border-red-800";
 
-function TournamentInfo({ tournamentId }: { tournamentId: number }) {
+function TournamentInfo({ tournamentId, onGameSelect }: { tournamentId: number, onGameSelect: (gameId: number) => void }) {
   const { executeQuery } = useDatabase();
   const [tournament, setTournament] = useState<any>(null);
   const [teams, setTeams] = useState<any[]>([]);
@@ -86,19 +86,20 @@ ORDER BY
   }
 
   const handleGameClick = (buttonKey: string, gameId: number) => {
+    onGameSelect(gameId)
     setSelectedButton(buttonKey);
   };
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">{tournament.name}</h2>
+      <h2 className="text-3xl font-bold mb-4">{tournament.name}</h2>
       <p>
         <strong>Location:</strong> {tournament.location}
       </p>
       <p>
-        <strong>Date:</strong> {tournament.start_date}
+        <strong>Date:</strong> {new Date(tournament.start_date).toLocaleDateString()}
         {tournament.start_date !== tournament.end_date &&
-          ` - ${tournament.end_date}`}
+          ` - ${new Date(tournament.end_date).toLocaleDateString()}`}
       </p>
       <h3 className="text-xl font-semibold mt-4">Teams</h3>
       <table className="border-collapse border border-white-800 mt-2">
@@ -125,6 +126,7 @@ ORDER BY
                 ) : null}
               </td>
               <td className="border border-white-800 p-2">
+              <p className="mr-2 inline">Group:</p>
                 {games
                   .filter(
                     (game) =>
